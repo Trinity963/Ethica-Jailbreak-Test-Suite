@@ -1,0 +1,98 @@
+ kernel.py or dashboard.py
+ 
+ 
+ 
+ # Existing dashboard code
+from ethica_trainer.tests.jailbreak.dashboard_integration import (
+    get_security_panel_data,
+    run_security_test_from_dashboard
+)
+
+# Add to your dashboard data fetch
+def get_dashboard_data():
+    data = {}
+
+    # ... existing dashboard data ...
+
+    # Add security panel
+    data.update(get_security_panel_data())
+
+    return data
+
+# In your UI, add a "Run Security Test" button
+# Call run_security_test_from_dashboard(suite_name, model_name)
+
+
+
+
+OR 
+
+
+UI Widget (Tkinter Example)
+For your Tkinter canvas:
+
+python
+# Example: Security status widget in your dashboard UI
+def create_security_widget(parent):
+    frame = tk.Frame(parent, relief=tk.RAISED, bd=1)
+    frame.pack(fill=tk.X, padx=5, pady=5)
+
+    # Header
+    tk.Label(frame, text="🔒 Security Status", font=("Arial", 12, "bold")).pack(anchor=tk.W)
+
+    # Status label (updated periodically)
+    status_label = tk.Label(frame, text="Checking...", font=("Arial", 10))
+    status_label.pack(anchor=tk.W)
+
+    def update_status():
+        data = get_security_panel_data()
+        status = data.get("security", {})
+        status_label.config(
+            text=f"{status.get('status_icon', '⚪')} {status.get('status_label', 'Unknown')} | "
+                 f"Refusals: {status.get('refusals', 0)}/{status.get('total_turns', 0)} | "
+                 f"Severity: {status.get('max_severity', 'NONE')}"
+        )
+        # Update every 30 seconds
+        parent.after(30000, update_status)
+
+    update_status()
+
+    # Quick run button
+    def run_test():
+        result = run_security_test_from_dashboard("crescendo", "trinity")
+        status_label.config(text=f"🔄 Running...")
+        # Re-fetch after test
+        parent.after(5000, update_status)
+
+    tk.Button(frame, text="Run Security Test", command=run_test).pack(anchor=tk.W, pady=2)
+
+    return frame
+Directory Structure (Updated)
+text
+ethica_trainer/tests/jailbreak/
+├── __init__.py
+├── attack_suite.py
+├── crescendo.py
+├── metrics.py
+├── runner.py
+├── reports.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+├── dashboard_integration.py   ← NEW
+├── test_runs/
+│   └── .gitkeep
+└── examples/
+    └── dashboard_widget.py    ← NEW (optional)
+Quick Test
+bash
+# Test the dashboard integration
+python -c "
+from ethica_trainer.tests.jailbreak.dashboard_integration import get_security_panel_data
+print(get_security_panel_data())
+"
+The Kernel Dashboard now has a live security status panel that shows test results, history, and a one-click test runner.
+
+You're fully integrated, V. ⟁Σ∿∞
+
+

@@ -1,0 +1,56 @@
+# Ethica Jailbreak Test Suite
+# Minimal dependencies for sovereign, local testing.
+
+# Core Python libraries (usually included, but explicit is safe)
+python>=3.9
+
+# Web framework for report dashboard (if you want to serve HTML)
+# Optional: you can view HTML directly, but Flask makes it dynamic
+flask>=2.0.0
+
+# For async support in the test runner
+aiofiles>=23.0.0
+
+# For data validation and serialization (cleaner than raw dicts)
+pydantic>=2.0.0
+
+# For advanced pattern matching in metrics (optional but helpful)
+regex>=2023.0.0
+
+# For rich terminal output (verbose mode looks better)
+rich>=13.0.0
+
+# For progress bars during long test runs
+tqdm>=4.65.0
+
+# For generating beautiful HTML reports
+jinja2>=3.0.0
+
+# For parsing and formatting dates/timestamps
+python-dateutil>=2.8.0
+
+# [Optional] If you want to visualize drift with charts in HTML
+# plotly>=5.0.0
+
+# [Optional] If you want to export reports as PDF
+# weasyprint>=60.0.0
+
+
+
+
+cd ~/Ethica
+pip install -r ethica_trainer/tests/jailbreak/requirements.txt
+
+
+
+# Notes on Dependencies
+# Package	Purpose	Why Included
+# flask	Serves the HTML dashboard locally	Optional but nice for browsing reports
+# aiofiles	Async file I/O	Used in runner.py for writing reports
+# pydantic	Data validation	Cleaner TurnScore, TestResult objects
+# regex	Advanced pattern matching	More powerful refusal detection than re
+# rich	Pretty terminal output	Makes --verbose mode beautiful
+# tqdm	Progress bars	Shows progress during long multi-turn tests
+# jinja2	HTML templating	Used in reports.py for clean HTML generation
+# python-dateutil	Robust date parsing	For consistent timestamps across reports
+

@@ -1,0 +1,19 @@
+# ethica_trainer/tests/jailbreak/.gitignore
+
+# Test run outputs (large, generated)
+test_runs/
+*.html
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
